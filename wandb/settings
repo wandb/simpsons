@@ -1,0 +1,4 @@
+[default]
+entity: wandb
+project: simpsons-may15
+base_url: https://api.wandb.ai
