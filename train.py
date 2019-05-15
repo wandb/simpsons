@@ -36,8 +36,8 @@ test_generator = test_datagen.flow_from_directory(
 labels = list(test_generator.class_indices.keys())
 
 model = Sequential()
-model.add(Flatten())
-model.add(Dense(128, activation='relu'))
+model.add(Flatten(input_shape=(config.img_size, config.img_size, 3)))
+model.add(Dense(16, activation='relu'))
 model.add(Dropout(0.4))
 model.add(Dense(13, activation="softmax"))
 model.compile(optimizer=optimizers.Adam(),
@@ -50,5 +50,5 @@ model.fit_generator(
     workers=4,
     validation_data=test_generator,
     callbacks=[WandbCallback(
-        data_type="image", labels=labels, generator=test_generator, save_model=False)],
+        data_type="image", labels=labels, save_model=False)],
     validation_steps=len(test_generator) // config.batch_size)
